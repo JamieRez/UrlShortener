@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost:27017/urls');
 function getNewUrl(orig){
     var db = mongoose.connection;
     db.once('open', function(){
-        
+        console.log("test"); //This and below don't happen
         var url = models.url;
         var newUrl = new url({original : orig});
         
@@ -29,6 +29,7 @@ function getNewUrl(orig){
 function getUrls(){
     var db = mongoose.connection;
     db.once('open', function(){
+        console.log("test"); //This and below don't happen
         var url = models.url;
         url.find(function(err,urls){
             if(err){throw err}
