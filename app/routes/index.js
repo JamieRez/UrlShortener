@@ -5,7 +5,7 @@ var short = require('../../short.js');
 
 
 app.get('/', function(req,res){
-    res.send("Dont worry about it");
+    res.end("Put a URL you want to shorten as a parameter after /new/ \nExample : https://url-shortener-jamierez.c9users.io/new/http://google.com");
 });
 
 app.get('/urls', function(req,res){
