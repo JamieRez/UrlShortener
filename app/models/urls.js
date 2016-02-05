@@ -3,8 +3,9 @@ var schema = mongoose.Schema;
 
 var urlSchema = new schema ({
     original : String,
-    short : String
-})
+    short : String,
+    num : Number
+});
 
 var url = mongoose.model('url' , urlSchema);
 

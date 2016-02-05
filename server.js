@@ -1,33 +1,15 @@
-'use strict';
-
 var express = require('express');
-var routes = require('./app/routes/index.js');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var session = require('express-session');
-
 var app = express();
-require('dotenv').load();
-require('./app/config/passport')(passport);
+var routes = require('./app/routes/index.js');
+var models = require('./app/models/urls.js')
+var mongoose = require('mongoose');
+var short = require('./short.js');
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect('mongodb://localhost:27017/urls');
+var db = mongoose.connection;
+    db.once('open', function(){
+        console.log('dataBase has connected');
+    });
 
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/app/common'));
 
-app.use(session({
-	secret: 'secretClementine',
-	resave: false,
-	saveUninitialized: true
-}));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-routes(app, passport);
-
-var port = process.env.PORT || 8080;
-app.listen(port,  function () {
-	console.log('Node.js listening on port ' + port + '...');
-});
